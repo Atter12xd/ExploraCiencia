@@ -1,15 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Atom, BookOpen, User, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { Atom, BookOpen, User } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const closeMenu = () => setMobileOpen(false);
-
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -49,11 +44,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-300"
-            onClick={() => setMobileOpen((prev) => !prev)}
-            aria-label="Abrir menú"
-          >
+          <button className="md:hidden text-gray-300">
             <svg
               className="w-6 h-6"
               fill="none"
@@ -70,51 +61,6 @@ export default function Navbar() {
           </button>
         </div>
       </div>
-
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden absolute inset-x-0 top-full px-4 pb-6"
-          >
-            <div className="glass-morphism rounded-2xl border border-white/10 p-4 shadow-lg">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm uppercase tracking-wide text-gray-400">
-                  Navegación
-                </span>
-                <button
-                  onClick={closeMenu}
-                  className="text-gray-400 hover:text-white transition-colors"
-                  aria-label="Cerrar menú"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <nav className="flex flex-col gap-3">
-                <Link
-                  href="/cursos"
-                  onClick={closeMenu}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white hover:border-primary/40 hover:bg-primary/10 transition-colors"
-                >
-                  <BookOpen className="w-5 h-5 text-primary" />
-                  Cursos
-                </Link>
-                <Link
-                  href="/profesor"
-                  onClick={closeMenu}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white hover:border-secondary/40 hover:bg-secondary/10 transition-colors"
-                >
-                  <User className="w-5 h-5 text-secondary" />
-                  Profesor
-                </Link>
-              </nav>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.nav>
   );
 }

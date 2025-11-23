@@ -178,6 +178,41 @@ export default function LaboratorioPage() {
           </div>
         </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-8"
+        >
+          <div className="glass-morphism rounded-xl p-4 sm:p-5">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
+              <div className="text-sm uppercase tracking-wide text-secondary flex items-center gap-2">
+                <Sparkles className="w-4 h-4" /> Ruta galáctica del conocimiento
+              </div>
+              <div className="text-xs text-gray-400 uppercase tracking-wide">
+                Avance {Math.round((completedCount / Math.max(totalExercises, 1)) * 100)}%
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              {exerciseList.map((exercise) => {
+                const isCompleted = exerciseState.some(
+                  (exerciseStatus) => exerciseStatus.id === exercise.id && exerciseStatus.completed
+                );
+                return (
+                  <div
+                    key={exercise.id}
+                    className={`rounded-xl border px-3 py-2 text-center text-xs sm:text-sm font-semibold transition-colors ${
+                      isCompleted ? "border-accent/50 bg-accent/10 text-accent" : "border-white/10 bg-white/5 text-white"
+                    }`}
+                  >
+                    {exercise.id < 10 ? `0${exercise.id}` : exercise.id}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </motion.div>
+
         {/* Interactive cards */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
